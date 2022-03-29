@@ -1,0 +1,49 @@
+label {
+    margin: 1em;
+    height: 50px;
+    font-weight: bold;
+    line-height: 1em;
+}
+
+input, textarea {
+    width: 100%;
+    margin: 1em;
+    height: 2.5em;
+    border: 2px solid #04AA6D;
+    border-radius: 4px;
+}
+
+select {
+    width: 50%;
+    margin: 1em;
+    height: 2.5em;
+
+    border: 2px solid #04AA6D;
+    border-radius: 4px;
+    margin-bottom: 2.5em;
+}
+
+.form {
+    display: block;
+    width: 100%;
+}
+
+input[type=submit] {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+button {
+    background-color: #04AA6D;
+    border: none;
+    color: white;
+    text-decoration: none;
+    cursor: pointer;
+    margin: .2em;
+    padding: .2em;
+    box-shadow: 1px 1px black;
+}

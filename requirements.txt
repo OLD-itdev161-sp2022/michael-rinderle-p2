@@ -2,8 +2,9 @@
 
 # Project Description
 
-This project is an online goal list. It allows you to add, edit, and delete
-your goals. It uses a Mongo database to store goals. 
+This project is an online goal list. It allows you to add, complete, and delete
+your personal goals. It uses a Mongo database to store goals so you can come back to
+the page and complete goals when you have accomplished them. 
 
 # Feature List
 
