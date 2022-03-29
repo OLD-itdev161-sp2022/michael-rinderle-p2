@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const Outer = styled.header`
     text-align: center;
-    background: #696969;
+    background: #a54646;
     margin-bottom: 1.45rem;
 `
 
@@ -15,6 +15,8 @@ const Inner = styled.div`
 `;
 
 const H1 = styled.h1`
+    color: white;
+    text-shadow: 1px 1px black;
     margin: 0px;
 `
 

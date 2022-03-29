@@ -1,0 +1,40 @@
+table {
+    margin-top: 2.5em;
+    width: 100%;
+}
+
+td {
+     font-weight: bold;
+     padding-top: 1em;
+     padding-bottom: 1em;
+}
+
+.trHeader {
+    color: #04AA6D;
+    border: 1px solid #000;
+}
+
+.goalHeader {
+    text-align: left;
+    width: 30%
+}
+
+.genreHeader {
+    text-align: left;
+    width: 20%
+}
+
+.createdHeader {
+    text-align: left;
+    width: 15%
+}
+
+.completedHeader {
+    text-align: left;
+    width: 15%
+}
+
+.actionHeader {
+    text-align: center;
+    width: 20%
+}

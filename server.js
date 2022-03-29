@@ -1,9 +1,7 @@
 import express from 'express';
 import connectDatabase from './config/db';
-import Compile from "./models/Compile"
+import Goal from "./models/Goal";
 import cors from 'cors';
-import fs from 'fs';
-import { exec } from 'child_process'
 
 
 // Initialize express application
@@ -22,46 +20,89 @@ app.use(
 );
 
 // API endpoints
+
 /**
-   * @route GET /
-   * @desc Test endpoint
+ * @route GET api/goals
+ * @desc Get goals
  */
-app.get("/", (req, res) => 
-    res.send("http get request sent to root api endpoint")
-);
-
-app.post(`/compile`, (req, res) => {
-
-    // get code and create compilation entry
-    let code = req.body.code;
-    let compile = new Compile({
-        timestamp: new Date(),
-        code: code
-    });
-    
+app.get("/api/goals", async (req, res) => {
     try {
-
-        // save code compilation to mongodb
-        compile.save();
-
-        // save code to c file
-        let stream = fs.createWriteStream("./compile.c");
-        stream.write(code);
-        // compile c code with clang (system installed)
-        exec("clang.exe compile.c -v", (error, stdout, stderr) => {
-            res.send(stderr);
-            return;
-        });
-
-        
-      } catch (error) {
-        res.status(500).end();
-        res.end("Error compiling");
-      }
+        const goals = await Goal.find().sort();
+        res.json(goals);
+    } catch(error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
 });
 
-app.get("/download", (req, res) => {
-    res.download(__dirname + "\\a.exe");
+/**
+ * @route POST api/goals
+ * @desc Get goals
+ */
+app.post("/api/goals", async (req, res) => {
+    try {
+        // create goal
+        const goal = new Goal({
+            goal: req.body.goal,
+            genre: req.body.genre,
+            created: new Date().toISOString(),
+            completed: ``
+        });
+
+        // Save to db and return
+        await goal.save();
+
+        res.json(goal);
+    } catch(error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+});
+
+/**
+ * @route PUT api/goals/:id
+ * @desc Update a completed goal
+ */
+app.put("/api/goals/:id", async (req, res) => {
+    try {
+        const goal = await Goal.findById(req.params.id);
+
+        // Make sure the post was found
+        if(!goal) {
+            return res.status(404).json({ msg: 'Post not found' });
+        }
+
+        // Update the post and return 
+        goal.completed = req.body.goal.completed;
+        await goal.save();
+
+        res.json(goal);
+    } catch(error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
+});
+
+/**
+ * @route DELETE api/goals/:id
+ * @desc Delete a goal
+ */
+app.delete("/api/goals/:id", async (req, res) => {
+    try {
+        const goal = await Goal.findById(req.params.id);
+        
+        // Make sure the post was found
+        if(!goal) {
+            return res.status(404).json({ msg: 'Goal not found' });
+        }
+
+        await goal.remove();
+
+        res.json({ msg: 'Goal removed' });
+    } catch(error) {
+        console.error(error);
+        res.status(500).send('Server error');
+    }
 });
 
 // Connection listener
