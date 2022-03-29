@@ -1,0 +1,17 @@
+# Project 2
+
+# Project Description
+
+This project is an online goal list. It allows you to add, edit, and delete
+your goals. It uses a Mongo database to store goals. 
+
+# Feature List
+
+React Front end
+Backend database
+
+# Requirements
+
+NodeJS
+ReactJS
+Typescript
